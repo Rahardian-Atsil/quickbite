@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickBite - Checkout</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <span class="brand">QuickBite</span>
+            <span class="topbar-note">Checkout dan Pembayaran</span>
+        </div>
+    </header>
+
+    <main class="page">
+        <div class="layout">
+
+            <!-- Kolom kiri -->
+            <div class="col-main">
+                <section class="panel">
+                    <div class="panel-head">
+                        <h2>Menu</h2>
+                        <button type="button" id="btnRefresh" class="link-btn">Muat ulang stok</button>
+                    </div>
+                    <ul id="menuList" class="menu-list">
+                        <li class="muted">Memuat menu...</li>
+                    </ul>
+                </section>
+
+                <section class="panel">
+                    <div class="panel-head">
+                        <h2>Data Pembayaran</h2>
+                    </div>
+                    <div class="form-grid">
+                        <div class="field">
+                            <label for="idPelanggan">ID Pelanggan</label>
+                            <input id="idPelanggan" type="text" value="CUST-001">
+                        </div>
+                        <div class="field">
+                            <label for="metodePembayaran">Metode pembayaran</label>
+                            <select id="metodePembayaran">
+                                <option value="CREDIT_CARD">Kartu Kredit</option>
+                                <option value="QRIS">QRIS</option>
+                                <option value="E_WALLET">E-Wallet</option>
+                            </select>
+                        </div>
+                        <div class="field field-wide">
+                            <label for="tokenKartu">Token kartu</label>
+                            <input id="tokenKartu" type="text" value="tok_visa_valid_999">
+                            <small>Isi dengan <code>invalid_card</code> untuk mensimulasikan pembayaran ditolak.</small>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="panel">
+                    <div class="panel-head">
+                        <h2>Batalkan Pesanan</h2>
+                    </div>
+                    <div class="form-grid">
+                        <div class="field">
+                            <label for="batalIdPesanan">ID Pesanan</label>
+                            <input id="batalIdPesanan" type="text" placeholder="Contoh: ORD-1A2B3C4D">
+                        </div>
+                        <div class="field">
+                            <label for="batalAlasan">Alasan pembatalan</label>
+                            <input id="batalAlasan" type="text" value="Ingin mengganti menu pesanan">
+                        </div>
+                    </div>
+                    <button type="button" id="btnBatal" class="btn btn-outline-danger">Batalkan pesanan</button>
+                    <div id="batalResult" class="alert hidden"></div>
+                </section>
+            </div>
+
+            <!-- Kolom kanan -->
+            <aside class="col-side">
+                <section class="panel sticky">
+                    <div class="panel-head">
+                        <h2>Ringkasan Pesanan</h2>
+                    </div>
+
+                    <ul id="summaryList" class="summary-list">
+                        <li class="muted">Belum ada item dipilih.</li>
+                    </ul>
+
+                    <div class="total-row">
+                        <span>Total</span>
+                        <strong id="totalText">Rp 0</strong>
+                    </div>
+
+                    <button type="button" id="btnCheckout" class="btn btn-primary">Bayar Sekarang</button>
+
+                    <div id="checkoutError" class="alert alert-error hidden"></div>
+
+                    <div id="receipt" class="receipt hidden">
+                        <div class="receipt-title">Pembayaran Berhasil</div>
+                        <dl class="receipt-rows">
+                            <div><dt>ID Pesanan</dt><dd id="rcOrder"></dd></div>
+                            <div><dt>ID Pembayaran</dt><dd id="rcPayment"></dd></div>
+                            <div><dt>Kode referensi</dt><dd id="rcRef"></dd></div>
+                            <div><dt>Waktu</dt><dd id="rcDate"></dd></div>
+                            <div><dt>Status pesanan</dt><dd id="rcStatus"></dd></div>
+                            <div class="receipt-total"><dt>Total dibayar</dt><dd id="rcTotal"></dd></div>
+                        </dl>
+                    </div>
+                </section>
+
+                <details class="tech">
+                    <summary>Detail teknis (untuk pengujian)</summary>
+                    <div class="tech-body">
+                        <p class="muted-small">Isi form otomatis untuk skenario uji:</p>
+                        <div class="preset-row">
+                            <button type="button" class="chip" data-preset="1">Checkout normal</button>
+                            <button type="button" class="chip" data-preset="2">Stok tidak cukup</button>
+                            <button type="button" class="chip" data-preset="3">Kartu ditolak</button>
+                        </div>
+                        <p class="muted-small">Respons terakhir dari server:</p>
+                        <pre id="rawResponse" class="raw">Belum ada request.</pre>
+                    </div>
+                </details>
+            </aside>
+
+        </div>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

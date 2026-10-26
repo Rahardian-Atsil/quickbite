@@ -1,0 +1,27 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  application:
+    name: quickbite
+
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3307/quickbite_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Jakarta}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    open-in-view: false
+
+# Konfigurasi Boundary Layer (Payment Gateway Pihak ke-3)
+payment:
+  gateway:
+    endpoint-url: "https://api.mockpayment.com/v1/charge"
+    api-key: "sk_live_sample_secret_key_12345"
